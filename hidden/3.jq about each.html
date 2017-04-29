@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div>div</div>
+    <p>p</p>
+    <span>span</span>
+    <div>div</div>
+    <p>p</p>
+    <span>span</span>
+</body>
+<script>
+    // jq的 each 方法第二个参数是一个回调函数,如果直接传入参数可以吗？
+    // 写一些算法来尝试一下
+    // 求 [ 1,2,3,4,5,6 ] 数组中的最大值，最小值，和，积。
+
+     /*   var arr = [ 1,2,3,4,5,6 ];
+        //求和
+        var sum = 0;
+        for (var i = 0; i < arr.length; i++) {
+            sum += arr[ i ];
+        }
+        //求积
+        var corss = 1;
+        for (var i = 0; i < corss.length; i++) {
+            corss *= arr[ i ];
+        }
+        //求最大值
+        var max =arr[ 0 ];
+        for (var i = 0; i < max.length; i++) {
+            if( max < arr[ i ] ) {
+                max = arr[ i ];
+            }
+        }
+        //求最小值
+        var mim =arr[ 0 ];
+        for (var i = 0; i < max.length; i++) {
+            if( mim > arr[ i ] ) {
+                mim = arr[ i ];
+            }
+        } */
+
+    // 如果要把执行的代码段作为参数放进 each 方法中参考下例
+     /*  function each ( arr,code ) {
+           for (var i = 0; i < arr.length; i++) {
+               // code 执行
+               // 执行方法有两种可以直接执行代码
+               // 1.eval(('code'));
+               // 2.( new Function ('index',code ))( i );
+               // 3.利用自执行函数,但是循环中的 i 必须作为参数传进去。
+               (function ( i ) {
+                  if ( max < arr[ i ] ) {
+                       max = arr[ i ]
+                    }
+                  })( i );
+               }
+           }
+       } */
+    // 来测试一下
+       var arr = [ 1,2,3,4,5,6 ];
+       var max =arr[ 0 ];
+      // each( arr, 'if ( max < arr[ i ] ) { max = arr[ index ]; }' );
+        each( arr,function ( v,i ) {
+             if ( max < v ) {
+                  max = v;
+            }
+      });
+       console.log(max);
+    // 这里有一些问题
+    // 1.应该在字符串中写什么变量？ 哪些变量可以用？哪些不能用？不清楚。
+    // 2.如果方法很长，这样写会维护不了。
+    // 需要重新考虑封装
+</script>
+</html>

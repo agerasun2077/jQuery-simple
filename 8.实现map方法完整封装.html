@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>map方法完整封装</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 和 each 如出一辙,只需要稍微调整一下
+    function isArrayLike ( obj ) {
+        // 判断是否为数组
+        if ( Object.prototype.toString.call( obj ) == '[object Array]' ) {
+            return true;
+        }
+        // 判断是否是伪数组，这里用了且运算
+        var length = 'length' in obj && obj.length;
+        return typeof length === 'number' && length >=0;
+    }
+    function map ( arr, callback ) {
+        var newArr = [],tmp;
+        if ( isArrayLike( arr ) ) {
+            // 遍历数组
+            for ( var i = 0; i < arr.length; i++ ) {
+                tmp = callback ( arr[ i ], i );
+                if ( tmp != null ) {
+                    newArr.push ( tmp );
+                }
+            }
+        } else {
+            // 遍历对象
+            for ( var k in arr ) {
+                tmp = callback ( arr[ k ], k );
+                if ( tmp != null ) {
+                    newArr.push( tmp );
+                };
+            }
+        }
+        return newArr;
+    }
+   //  测试
+   var datas =[
+       { name : 'jim1', age : 19, gender : '男' },
+       { name : 'jim2', age : 20, gender : '男' },
+       { name : 'jim3', age : 21, gender : '男' },
+       { name : 'jim4', age : 22, gender : '男' },
+       { name : 'jim5', age : 23, gender : '男' },
+       { name : 'jim6', age : 24, gender : '男' },
+       { name : 'jim7', age : 25, gender : '男' }
+    ];
+   // 利用 map 方法创建一个table 表格
+    document.body.innerHTML = '<table border = "1" width = "400"><tbody>' + map ( datas, function ( v ) {
+                return '<tr>' + map( v, function ( v ) {
+                            return '<td>' + v + '</td>';
+                        }).join( '' ) + '</tr>';
+            }).join( '' ) + '</tbody></table>';
+</script>
+</html>

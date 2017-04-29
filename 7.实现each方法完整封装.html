@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>each完整封装</title>
+</head>
+<body>
+
+</body>
+<script>
+    function isArrayLike ( obj ) {
+        // 判断是否为数组
+        if ( Object.prototype.toString.call( obj ) == '[object Array]' ) {
+            return true;
+        }
+        // 判断是否是伪数组，这里用了且运算
+        var length = 'length' in obj && obj.length;
+        return typeof length === 'number' && length >=0;
+    }
+    function each ( arr, callback ) {
+        if ( isArrayLike( arr ) ) {
+            // 遍历数组
+            for ( var i = 0; i < arr.length; i++ ) {
+                if ( callback.call ( arr[ i ], i, arr[ i ] ) === false ) break;
+            }
+        } else {
+            // 遍历对象
+            for ( var k in arr ) {
+                if ( callback.call( arr[ k ], k, arr[ k ] ) ===false ) break;
+            }
+        }
+        return arr;
+    }
+    // 测试
+    var o = {
+        name : 'jim',
+         age : '20',
+       gender: '男'
+    }
+    each( o, function( i, v ) {
+        console.log(this);
+        console.log( i + ',' + v );
+    });
+</script>
+</html>

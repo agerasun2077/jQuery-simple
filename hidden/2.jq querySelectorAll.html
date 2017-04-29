@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div>div</div>
+    <p>p</p>
+    <span>span</span>
+    <div>div</div>
+    <p>p</p>
+    <span>span</span>
+</body>
+<script>
+    // 使用qsa来获取并封装一个方法
+    function select ( selector ) {
+        return document.querySelectorAll( selector );
+    }
+    // 优化了获取代码的方式
+    var nodes = select( 'div,p' );
+    // 具体方法可以自己使用命名空间来实现 namespace mode
+    var J = {};
+    J.qsa = function ( selector ) {
+        return document.querySelectorAll( selector );
+    }
+</script>
+</html>

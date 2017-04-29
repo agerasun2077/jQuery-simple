@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选择函数与循环封装</title>
+</head>
+<body>
+    <div>div</div>
+    <p>p</p>
+    <div>div</div>
+    <span>span</span>
+    <p>p</p>
+    <div>div</div>
+</body>
+<script>
+    function select ( selector ) {
+        return document.querySelectorAll( selector );
+    }
+    function each ( arr, callback ) {
+        for (var i = 0; i < arr.length; i++) {
+                callback( i, arr[ i ] );
+        }
+    }
+    //测试一下结果
+    var nodes = select('div,p');
+    each( nodes, function ( i, v ) {
+        v.style.border = v.nodeName == 'DIV' ? '1px solid red'
+                                             : '1px dashed blue';
+    });
+</script>
+</html>

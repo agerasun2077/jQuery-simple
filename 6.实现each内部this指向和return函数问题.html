@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>实现each内部this指向和return问题</title>
+</head>
+<body>
+
+</body>
+<script>
+    // this 的含义是看谁去调用
+    // 1.如果没有任何引用就是全局调用，在浏览器中默认是window; 例如:func();
+    // 2.如果是对象引用，this 就是指当前的对象 例如：o.func(); arr[ i ]();
+    // 3.用 new 构造函数调用的时候,this就是指刚刚创建的实例对象
+    // 4.上下文调用 ( 自定义 this指向 )，call, apply, bind;
+    // 这里使用 call 方法就可以了
+    var arr = [1,2,3,4,5,6];
+    function each( arr, callback ) {
+        for ( var i = 0; i < arr.length; i++ ) {
+        //添加判断跳出循环的条件 this指向了arr[ i ]
+            if( callback.call( arr[ i ], i, arr[ i ] ) === false ) break;
+        }
+        return arr;
+    }
+    // jq 内部的跳出函数是使用 return false 的方法，也可以使用 return 0 的方式，但是判断条件就不能用全等了.
+    // 测试
+    each( arr,function () {
+        console.log(this);
+        return false;
+    });
+</script>
+</html>
